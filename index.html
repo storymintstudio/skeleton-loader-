@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skeleton Loader</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #0a0a0a;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            padding: 40px 20px;
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.4;
+        }
+
+        /* ── shimmer keyframe ── */
+        @keyframes shimmer {
+            0% {
+                background-position: -600px 0;
+            }
+
+            100% {
+                background-position: 600px 0;
+            }
+        }
+
+        .skeleton {
+            background: #1a1a1a;
+            background-image: linear-gradient(90deg,
+                    #1a1a1a 0px,
+                    #2a2a2a 40px,
+                    #c8ff0022 80px,
+                    #2a2a2a 120px,
+                    #1a1a1a 160px);
+            background-size: 600px 100%;
+            animation: shimmer 1.6s infinite linear;
+            border-radius: 6px;
+        }
+
+        /* ────── CARD GRID ────── */
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            width: 240px;
+            background: #111111;
+            border: 1px solid #1f1f1f;
+            border-radius: 14px;
+            overflow: hidden;
+            padding-bottom: 20px;
+        }
+
+        .card-thumb {
+            width: 100%;
+            height: 140px;
+            border-radius: 0;
+        }
+
+        .card-body {
+            padding: 16px 16px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .line {
+            height: 12px;
+        }
+
+        .line.title {
+            width: 70%;
+        }
+
+        .line.sub {
+            width: 90%;
+        }
+
+        .line.short {
+            width: 50%;
+        }
+
+        .card-footer {
+            padding: 14px 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .avatar-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .line.name {
+            width: 55%;
+            height: 10px;
+        }
+
+        .line.meta {
+            width: 35%;
+            height: 8px;
+        }
+
+        /* ────── LIST SKELETON ────── */
+        .list {
+            width: 360px;
+            background: #111111;
+            border: 1px solid #1f1f1f;
+            border-radius: 14px;
+            padding: 8px 0;
+            overflow: hidden;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 20px;
+        }
+
+        .list-item+.list-item {
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .list-thumb {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .list-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .line.l1 {
+            width: 60%;
+            height: 11px;
+        }
+
+        .line.l2 {
+            width: 80%;
+            height: 9px;
+        }
+
+        /* ────── PROFILE SKELETON ────── */
+        .profile {
+            width: 280px;
+            background: #111111;
+            border: 1px solid #1f1f1f;
+            border-radius: 14px;
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .profile-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+        }
+
+        .profile-lines {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .line.pn {
+            width: 48%;
+            height: 13px;
+        }
+
+        .line.ph {
+            width: 65%;
+            height: 9px;
+        }
+
+        .line.pb {
+            width: 85%;
+            height: 9px;
+        }
+
+        .line.pb2 {
+            width: 70%;
+            height: 9px;
+        }
+
+        .profile-stats {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .stat-block {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .line.sv {
+            width: 40%;
+            height: 13px;
+        }
+
+        .line.sl {
+            width: 70%;
+            height: 8px;
+        }
+
+        .btn-skel {
+            width: 100%;
+            height: 38px;
+            border-radius: 8px;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Skeleton Loader</h2>
+
+    <!-- Cards -->
+    <div class="cards">
+        <div class="card">
+            <div class="skeleton card-thumb"></div>
+            <div class="card-body">
+                <div class="skeleton line title"></div>
+                <div class="skeleton line sub"></div>
+                <div class="skeleton line short"></div>
+            </div>
+            <div class="card-footer">
+                <div class="skeleton avatar"></div>
+                <div class="avatar-lines">
+                    <div class="skeleton line name"></div>
+                    <div class="skeleton line meta"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="skeleton card-thumb"></div>
+            <div class="card-body">
+                <div class="skeleton line title"></div>
+                <div class="skeleton line sub"></div>
+                <div class="skeleton line short"></div>
+            </div>
+            <div class="card-footer">
+                <div class="skeleton avatar"></div>
+                <div class="avatar-lines">
+                    <div class="skeleton line name"></div>
+                    <div class="skeleton line meta"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="skeleton card-thumb"></div>
+            <div class="card-body">
+                <div class="skeleton line title"></div>
+                <div class="skeleton line sub"></div>
+                <div class="skeleton line short"></div>
+            </div>
+            <div class="card-footer">
+                <div class="skeleton avatar"></div>
+                <div class="avatar-lines">
+                    <div class="skeleton line name"></div>
+                    <div class="skeleton line meta"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- List -->
+    <div class="list">
+        <div class="list-item">
+            <div class="skeleton list-thumb"></div>
+            <div class="list-lines">
+                <div class="skeleton line l1"></div>
+                <div class="skeleton line l2"></div>
+            </div>
+        </div>
+        <div class="list-item">
+            <div class="skeleton list-thumb"></div>
+            <div class="list-lines">
+                <div class="skeleton line l1"></div>
+                <div class="skeleton line l2"></div>
+            </div>
+        </div>
+        <div class="list-item">
+            <div class="skeleton list-thumb"></div>
+            <div class="list-lines">
+                <div class="skeleton line l1"></div>
+                <div class="skeleton line l2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile -->
+    <div class="profile">
+        <div class="skeleton profile-avatar"></div>
+        <div class="profile-lines">
+            <div class="skeleton line pn"></div>
+            <div class="skeleton line ph"></div>
+            <div class="skeleton line pb"></div>
+            <div class="skeleton line pb2"></div>
+        </div>
+        <div class="profile-stats">
+            <div class="stat-block">
+                <div class="skeleton line sv"></div>
+                <div class="skeleton line sl"></div>
+            </div>
+            <div class="stat-block">
+                <div class="skeleton line sv"></div>
+                <div class="skeleton line sl"></div>
+            </div>
+            <div class="stat-block">
+                <div class="skeleton line sv"></div>
+                <div class="skeleton line sl"></div>
+            </div>
+        </div>
+        <div class="skeleton btn-skel"></div>
+    </div>
+
+</body>
+
+</html>
